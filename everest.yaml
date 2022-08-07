@@ -1,0 +1,6 @@
+- Name: SSMQoLMod
+  Version: 1.0.5
+  DLL: Code/SSMQoLMod.dll
+  Dependencies:
+    - Name: Everest
+      Version: 1.1958.0
