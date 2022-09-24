@@ -25,6 +25,7 @@ namespace Celeste.Mod.SSMQoLMod
             FastLookout.Load();
             SkipControllerHooks.Load();
             RemoveLookoutsCommand.Load();
+            KeepToggleGrabOnDeath.Load();
         }
 
         public override void Unload()
@@ -33,6 +34,7 @@ namespace Celeste.Mod.SSMQoLMod
             FastLookout.Unload();
             SkipControllerHooks.Unload();
             RemoveLookoutsCommand.Unload();
+            KeepToggleGrabOnDeath.Unload();
         }
     }
 }

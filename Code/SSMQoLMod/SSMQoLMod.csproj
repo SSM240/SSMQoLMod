@@ -77,6 +77,7 @@
     <Compile Include="Commands\RemoveLookoutsCommand.cs" />
     <Compile Include="Modifications\DisablePlayerFlashing.cs" />
     <Compile Include="Modifications\FastLookout.cs" />
+    <Compile Include="Modifications\KeepToggleGrabOnDeath.cs" />
     <Compile Include="Modifications\SkipController.cs" />
     <Compile Include="SSMQoLModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
