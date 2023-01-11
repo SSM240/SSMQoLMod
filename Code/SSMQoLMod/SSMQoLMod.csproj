@@ -75,6 +75,7 @@
     <Compile Include="Commands\CameraOffsetCommands.cs" />
     <Compile Include="Commands\DisableEntityCommand.cs" />
     <Compile Include="Commands\RemoveLookoutsCommand.cs" />
+    <Compile Include="Modifications\DisableHeatWaveDistortion.cs" />
     <Compile Include="Modifications\DisablePlayerFlashing.cs" />
     <Compile Include="Modifications\FastLookout.cs" />
     <Compile Include="Modifications\KeepToggleGrabOnDeath.cs" />

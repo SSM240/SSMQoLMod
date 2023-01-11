@@ -26,6 +26,7 @@ namespace Celeste.Mod.SSMQoLMod
             SkipControllerHooks.Load();
             RemoveLookoutsCommand.Load();
             KeepToggleGrabOnDeath.Load();
+            DisableHeatWaveDistortion.Load();
         }
 
         public override void Unload()
@@ -35,6 +36,7 @@ namespace Celeste.Mod.SSMQoLMod
             SkipControllerHooks.Unload();
             RemoveLookoutsCommand.Unload();
             KeepToggleGrabOnDeath.Unload();
+            DisableHeatWaveDistortion.Unload();
         }
     }
 }

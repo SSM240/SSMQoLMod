@@ -26,6 +26,8 @@ namespace Celeste.Mod.SSMQoLMod
         [SettingSubText("MODOPTIONS_SSMQOL_KEEPTOGGLEGRABONDEATH_SUBTEXT")]
         public bool KeepToggleGrabOnDeath { get; set; } = false;
 
+        public bool DisableHeatWaveDistortion { get; set; } = false;
+
         public void CreateFastLookoutEntry(TextMenu menu, bool inGame)
         {
             TextMenu.OnOff entry = new TextMenu.OnOff(Dialog.Clean("MODOPTIONS_SSMQOL_FASTLOOKOUT"), FastLookout);
