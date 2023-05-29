@@ -33,7 +33,13 @@
     <Reference Include="Celeste">
       <HintPath>lib-stripped\Celeste-nstrip.exe</HintPath>
     </Reference>
+    <Reference Include="CommunalHelper">
+      <HintPath>lib-stripped\CommunalHelper-nstrip.dll</HintPath>
+    </Reference>
     <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\MMHOOK_Celeste.dll" />
+    <Reference Include="VivHelper">
+      <HintPath>lib-stripped\VivHelper-nstrip.dll</HintPath>
+    </Reference>
     <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\YamlDotNet.dll" />
   </ItemGroup>
 
