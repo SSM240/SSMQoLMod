@@ -100,11 +100,9 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
                     if (component is Coroutine coroutine)
                     {
                         // kinda wish there was a nicer way to do this but oh well
-                        DynData<Coroutine> coroutineData = new DynData<Coroutine>(coroutine);
-                        Stack<IEnumerator> enumerators = coroutineData.Get<Stack<IEnumerator>>("enumerators");
-                        while (enumerators.Any(e => e.GetType().Name == routineName))
+                        while (coroutine.enumerators.Any(e => e.GetType().Name == routineName))
                         {
-                            enumerators.Pop();
+                            coroutine.enumerators.Pop();
                         }
                     }
                 }
@@ -150,7 +148,7 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
             // look for constant 3f, only places it's used in the method are for wait times
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(3f)))
             {
-                cursor.EmitDelegate<Func<float, float>>(ModifyWaitTime);
+                cursor.EmitDelegate(ModifyWaitTime);
             }
         }
 
@@ -192,7 +190,7 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
             {
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldfld, f_this);
-                cursor.EmitDelegate<Action<LevelEnter>>(AddBSideSkip);
+                cursor.EmitDelegate(AddBSideSkip);
             }
         }
 
@@ -205,7 +203,7 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
                     OnSkip = () =>
                     {
                         // finish up the rest of the setup
-                        Session session = new DynData<LevelEnter>(levelEnter).Get<Session>("session");
+                        Session session = levelEnter.session;
                         Input.SetLightbarColor(AreaData.Get(session.Area).TitleBaseColor);
                         Engine.Scene = new LevelLoader(session);
                         // then skip the routine

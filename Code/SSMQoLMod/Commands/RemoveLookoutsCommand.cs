@@ -11,7 +11,7 @@ namespace Celeste.Mod.SSMQoLMod.Commands
         [Command("remove_lookouts", "Removes all lookouts (watchtowers) in the current room for the remainder of the session")]
         public static void CmdRemoveLookouts()
         {
-            if (!(Engine.Scene is Level level))
+            if (Engine.Scene is not Level level)
             {
                 Engine.Commands.Log("Not currently in a level", Color.Yellow);
                 return;
@@ -39,7 +39,7 @@ namespace Celeste.Mod.SSMQoLMod.Commands
         [Command("restore_lookouts", "Restores all lookouts removed by remove_lookouts")]
         public static void CmdRestoreLookouts()
         {
-            if (!(Engine.Scene is Level level))
+            if (Engine.Scene is not Level level)
             {
                 Engine.Commands.Log("Not currently in a level", Color.Yellow);
                 return;

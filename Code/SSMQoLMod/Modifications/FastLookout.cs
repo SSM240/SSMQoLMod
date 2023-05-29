@@ -31,13 +31,13 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
             while (cursor.TryGotoNext(MoveType.After,
                 instr => instr.MatchLdfld(lookRoutineInfo.DeclaringType.FullName, "<maxspd>5__4")))
             {
-                cursor.EmitDelegate<Func<float, float>>(ModifySpeed);
+                cursor.EmitDelegate(ModifySpeed);
             }
             cursor.Index = 0;
             while (cursor.TryGotoNext(MoveType.After,
                 instr => instr.MatchLdfld(lookRoutineInfo.DeclaringType.FullName, "<accel>5__3")))
             {
-                cursor.EmitDelegate<Func<float, float>>(ModifySpeed);
+                cursor.EmitDelegate(ModifySpeed);
             }
         }
 

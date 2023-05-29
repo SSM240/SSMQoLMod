@@ -27,7 +27,7 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
             if (cursor.TryGotoNext(instr => instr.MatchCall(typeof(Input).FullName, "ResetGrab")))
             {
                 cursor.Remove();
-                cursor.EmitDelegate<Action>(ResetGrabIfEnabled);
+                cursor.EmitDelegate(ResetGrabIfEnabled);
             }
         }
 

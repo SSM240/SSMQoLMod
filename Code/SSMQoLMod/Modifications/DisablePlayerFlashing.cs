@@ -18,8 +18,7 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
         {
             if (SSMQoLModule.Settings.DisableLowStaminaFlashing)
             {
-                DynData<Player> playerData = new DynData<Player>(self);
-                playerData["flash"] = true;
+                self.flash = true;
             }
             orig(self);
         }
