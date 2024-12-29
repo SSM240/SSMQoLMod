@@ -17,3 +17,7 @@ MODOPTIONS_SSMQOL_KEEPTOGGLEGRABONDEATH= Don't Reset Grab Mode On Death
 MODOPTIONS_SSMQOL_KEEPTOGGLEGRABONDEATH_SUBTEXT= Only applies to "Toggle Grab" mode.
 
 MODOPTIONS_SSMQOL_DISABLEHEATWAVEDISTORTION= Disable Heat Wave Distortion
+
+MODOPTIONS_SSMQOL_CORRECTANALOGDASHANGLE= Correct Analog Dash Angle
+MODOPTIONS_SSMQOL_CORRECTANALOGDASHANGLE_SUBTEXT= Adjusts the analog angle window for dashes to be consistent,
+instead of being smaller for down diagonal dashes.

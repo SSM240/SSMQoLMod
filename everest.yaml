@@ -1,11 +1,6 @@
 - Name: SSMQoLMod
-  Version: 1.1.0
-  DLL: Code/SSMQoLMod.dll
+  Version: 0.1.0
+  DLL: bin/SSMQoLMod.dll
   Dependencies:
-    - Name: Everest
-      Version: 1.4000.0
-  OptionalDependencies:
-    - Name: CommunalHelper
-      Version: 1.17.3
-    - Name: VivHelper
-      Version: 1.12.1
+    - Name: EverestCore
+      Version: 1.4673.0

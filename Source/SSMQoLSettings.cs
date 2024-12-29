@@ -28,6 +28,9 @@ namespace Celeste.Mod.SSMQoLMod
 
         public bool DisableHeatWaveDistortion { get; set; } = false;
 
+        [SettingSubText("MODOPTIONS_SSMQOL_CORRECTANALOGDASHANGLE_SUBTEXT")]
+        public bool CorrectAnalogDashAngle { get; set; } = false;
+
         public void CreateFastLookoutEntry(TextMenu menu, bool inGame)
         {
             TextMenu.OnOff entry = new TextMenu.OnOff(Dialog.Clean("MODOPTIONS_SSMQOL_FASTLOOKOUT"), FastLookout);

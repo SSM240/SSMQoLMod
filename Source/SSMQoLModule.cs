@@ -27,6 +27,7 @@ namespace Celeste.Mod.SSMQoLMod
             RemoveLookoutsCommand.Load();
             KeepToggleGrabOnDeath.Load();
             DisableHeatWaveDistortion.Load();
+            CorrectAnalogDashAngle.Load();
         }
 
         public override void Unload()
@@ -37,6 +38,7 @@ namespace Celeste.Mod.SSMQoLMod
             RemoveLookoutsCommand.Unload();
             KeepToggleGrabOnDeath.Unload();
             DisableHeatWaveDistortion.Unload();
+            CorrectAnalogDashAngle.Unload();
         }
     }
 }

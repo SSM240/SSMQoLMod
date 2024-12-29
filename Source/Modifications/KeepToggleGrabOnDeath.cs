@@ -26,7 +26,9 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
             ILCursor cursor = new ILCursor(il);
             if (cursor.TryGotoNext(instr => instr.MatchCall(typeof(Input).FullName, "ResetGrab")))
             {
+#pragma warning disable CL0005 // ILCursor.Remove or RemoveRange used
                 cursor.Remove();
+#pragma warning restore CL0005 // ILCursor.Remove or RemoveRange used
                 cursor.EmitDelegate(ResetGrabIfEnabled);
             }
         }
