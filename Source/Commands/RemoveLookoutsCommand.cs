@@ -19,11 +19,13 @@ namespace Celeste.Mod.SSMQoLMod.Commands
             int lookoutsFound = 0;
             foreach (Lookout lookout in level.Tracker.GetEntities<Lookout>())
             {
-                lookoutsFound++;
-                EntityID id = new DynamicData(lookout).Get<EntityID>("EntityID");
-                level.Session.DoNotLoad.Add(id);
-                SSMQoLModule.Session.DisabledLookoutIDs.Add(id);
-                lookout.RemoveSelf();
+                if (new DynamicData(lookout).TryGet("EntityID", out EntityID id))
+                {
+                    lookoutsFound++;
+                    level.Session.DoNotLoad.Add(id);
+                    SSMQoLModule.Session.DisabledLookoutIDs.Add(id);
+                    lookout.RemoveSelf();
+                }
             }
             if (lookoutsFound > 0)
             {
@@ -88,7 +90,10 @@ namespace Celeste.Mod.SSMQoLMod.Commands
         private static void On_Lookout_ctor(On.Celeste.Lookout.orig_ctor orig, Lookout self, EntityData data, Vector2 offset)
         {
             orig(self, data, offset);
-            new DynamicData(self).Set("EntityID", new EntityID(data.Level.Name, data.ID));
+            if (data.Level != null) // thx xaphan
+            {
+                new DynamicData(self).Set("EntityID", new EntityID(data.Level.Name, data.ID));
+            }
         }
     }
 }
