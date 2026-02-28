@@ -26,20 +26,14 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
             ILCursor cursor = new ILCursor(il);
             if (cursor.TryGotoNext(instr => instr.MatchCall(typeof(Input).FullName, "ResetGrab")))
             {
-#pragma warning disable CL0005 // ILCursor.Remove or RemoveRange used
-                cursor.Remove();
-#pragma warning restore CL0005 // ILCursor.Remove or RemoveRange used
-                cursor.EmitDelegate(ResetGrabIfEnabled);
+                ILCursor targetCursor = cursor.Clone();
+                targetCursor.Index++;
+                cursor.EmitDelegate(CheckToggleGrabSetting);
+                cursor.EmitBrtrue(targetCursor.Next);
             }
         }
 
-        private static void ResetGrabIfEnabled()
-        {
-            if (!SSMQoLModule.Settings.KeepToggleGrabOnDeath)
-            {
-                Input.ResetGrab();
-            }
-        }
+        private static bool CheckToggleGrabSetting() => SSMQoLModule.Settings.KeepToggleGrabOnDeath;
 
         private static void Level_OnEnter(Session session, bool fromSaveData)
         {
