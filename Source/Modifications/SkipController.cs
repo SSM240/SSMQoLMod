@@ -90,20 +90,18 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
             }
         }
 
-        public static void SkipRoutine(string routineName)
+        internal static List<(WeakReference<Coroutine>, int)> allCoroutines = [];
+
+        internal static void SkipPostcardRoutine()
         {
             Audio.BusStopAll("bus:/ui_sfx", immediate: false);
-            foreach (Entity entity in Engine.Scene.Entities)
+            foreach (var item in allCoroutines)
             {
-                foreach (Component component in entity)
+                if (item.Item1.TryGetTarget(out var coroutine))
                 {
-                    if (component is Coroutine coroutine)
+                    while (coroutine.enumerators.Count >= item.Item2)
                     {
-                        // kinda wish there was a nicer way to do this but oh well
-                        while (coroutine.enumerators.Any(e => e.GetType().Name == routineName))
-                        {
-                            coroutine.enumerators.Pop();
-                        }
+                        coroutine.enumerators.Pop();
                     }
                 }
             }
@@ -125,6 +123,7 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
 
         public static void Load()
         {
+            On.Celeste.Postcard.DisplayRoutine += On_Postcard_DisplayRoutine;
             owLoaderRoutineHook = new ILHook(owLoaderRoutineInfo, IL_OverworldLoader_Routine);
             On.Celeste.Postcard.ctor_string_string_string += On_Postcard_ctor;
             levelEnterRoutineHook = new ILHook(levelEnterRoutineInfo, IL_LevelEnter_Routine);
@@ -132,11 +131,21 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
 
         public static void Unload()
         {
+            On.Celeste.Postcard.DisplayRoutine -= On_Postcard_DisplayRoutine;
             owLoaderRoutineHook?.Dispose();
             owLoaderRoutineHook = null;
             On.Celeste.Postcard.ctor_string_string_string -= On_Postcard_ctor;
             levelEnterRoutineHook?.Dispose();
             levelEnterRoutineHook = null;
+        }
+
+        private static IEnumerator On_Postcard_DisplayRoutine(On.Celeste.Postcard.orig_DisplayRoutine orig, Postcard self)
+        {
+            // roundabout way of getting a reference to the Coroutine instance and keeping track of the size of the stack
+            // thanks USSRNAME
+            yield return (Coroutine coroutine) => SkipController.allCoroutines.Add((new(coroutine), coroutine.enumerators.Count));
+            yield return new SwapImmediately(orig(self));
+            yield return (Coroutine coroutine) => SkipController.allCoroutines.RemoveAll(c => !c.Item1.TryGetTarget(out var cx) || coroutine == cx);
         }
 
         /// <summary>
@@ -172,7 +181,7 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
             {
                 Engine.Scene.Add(new SkipController
                 {
-                    OnSkip = () => SkipController.SkipRoutine("<DisplayRoutine>d__13")
+                    OnSkip = SkipController.SkipPostcardRoutine
                 });
             }
         }
@@ -206,8 +215,6 @@ namespace Celeste.Mod.SSMQoLMod.Modifications
                         Session session = levelEnter.session;
                         Input.SetLightbarColor(AreaData.Get(session.Area).TitleBaseColor);
                         Engine.Scene = new LevelLoader(session);
-                        // then skip the routine
-                        SkipController.SkipRoutine("<Routine>d__5");
                     }
                 });
             }
