@@ -1,9 +1,9 @@
 - Name: SSMQoLMod
-  Version: 1.2.2
+  Version: 1.2.3
   DLL: bin/SSMQoLMod.dll
   Dependencies:
     - Name: EverestCore
-      Version: 1.5184.0
+      Version: 1.6064.0
   OptionalDependencies:
     - Name: CommunalHelper
       Version: 1.17.3
